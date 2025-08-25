@@ -41,3 +41,23 @@ h2{
     font-size: 26px;
     color: var(--light-pink);
 }
+
+
+label{
+    font-size: 20px;
+    color: white;
+}
+
+input{
+    color: #1d1e33;
+    padding:8px;
+    font-size:16px;
+}
+
+.custom-button{
+    font-size: 16px;
+    padding:12px;
+    background:#e91e63;
+    color:white;
+    border-color:e91e63;
+}
