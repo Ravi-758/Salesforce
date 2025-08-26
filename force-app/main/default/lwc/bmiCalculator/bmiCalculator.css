@@ -60,4 +60,10 @@ input{
     background:#e91e63;
     color:white;
     border-color:e91e63;
+    margin-top:20px;
+}
+
+.result-value{
+    font-size: 30px;
+    color:lightblue;
 }
