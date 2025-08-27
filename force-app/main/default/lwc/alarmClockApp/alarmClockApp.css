@@ -42,3 +42,10 @@ img{
     display:block;
     margin:20px auto;
 }
+.custom-label{
+    color: #00d9f6;
+
+}
+.custom-select{
+    color:#243356;
+}
