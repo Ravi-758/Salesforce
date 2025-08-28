@@ -6,10 +6,23 @@ export default class AlarmClockApp extends LightningElement {
     hours = [];
     minutes =   [];
     meridiems = ['AM','PM'];
+    alramTime
+    isAlarmSet = false;
+    isAlarmTriggered = false
+
     connectedCallback(){
         this.currectTimeHandler();
         this.createHoursOptions();
     }
+
+    get isFieldNotSelected(){
+        return !this.hourSelected && !this.minSelected && !this.meridiemSelected;
+    }
+
+    get shakeImage(){
+        return this.isAlarmTriggered ? 'shake' : ''
+    }
+
     currectTimeHandler(){
 
         setInterval(()=>{
@@ -28,6 +41,11 @@ export default class AlarmClockApp extends LightningElement {
         hour = hour<10 ? "0"+hour : hour;
         minutes = minutes<10 ? "0"+minutes : minutes;
         seconds = seconds<10 ? "0"+seconds : seconds;
+        //currentTime = `${hour}:${minutes}:${seconds} ${ampm}`
+        if(this.alramTime === `${hour}:${minutes}:${seconds} ${ampm}`){
+            console.log("alarm ringing")
+            this.isAlarmTriggered=true
+        }
         },1000)
         }
         createHoursOptions(){
@@ -41,5 +59,27 @@ export default class AlarmClockApp extends LightningElement {
                 let val = i<10 ? `0`+i:i;
                 this.minutes.push(val);
             }
+        }
+        optionhandler(event){
+          const{label,value} = event.detail
+          if(label=="Hour(s)"){
+              this.hourSelected =value
+          }else if(label == "Minute(s)"){
+               this.minSelected = value;
+          }else if(label==="AM/PM"){
+                this.meridiemSelected = value
+          }
+        }
+        setAlarmHandler(){
+            this.alramTime = `${this.hourSelected}:${this.minSelected}:${this.meridiemSelected}`
+            this.isAlarmSet= true
+        }
+        clearAlarmHandler(){
+            this.alarmTime = ''
+            this.isAlarmSet= false
+            const elements = this.template.querySelectorAll('c-clock-dropdown')
+            Arrayfrom(elements).forEach(element=>{
+                element.reset("")
+            })
         }
 }
