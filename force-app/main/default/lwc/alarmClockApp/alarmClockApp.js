@@ -2,6 +2,7 @@ import { LightningElement } from 'lwc';
 import AlarmClockAssets from '@salesforce/resourceUrl/AlarmClockAssets';
 export default class AlarmClockApp extends LightningElement {
     clockImage = AlarmClockAssests+'/AlarmClockAssets/clock.png';
+    ringtone = new Audio(AlarmClockAssests+'/AlarmClockAssets/Clocksound.mp3')
     currentTime = `${hour}:${minutes}:${seconds} ${ampm}`
     hours = [];
     minutes =   [];
@@ -45,6 +46,8 @@ export default class AlarmClockApp extends LightningElement {
         if(this.alramTime === `${hour}:${minutes}:${seconds} ${ampm}`){
             console.log("alarm ringing")
             this.isAlarmTriggered=true
+            this.ringtone.play();
+            this.ringtone.loop=true
         }
         },1000)
         }
@@ -77,6 +80,8 @@ export default class AlarmClockApp extends LightningElement {
         clearAlarmHandler(){
             this.alarmTime = ''
             this.isAlarmSet= false
+            this.isAlarmTriggered = false
+            this.ringtone.pause()
             const elements = this.template.querySelectorAll('c-clock-dropdown')
             Arrayfrom(elements).forEach(element=>{
                 element.reset("")
